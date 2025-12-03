@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becasun - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .nav a.active {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            color: #059669 !important;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            color: #059669;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            color: #059669;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-unit {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .calculator-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calculator-title {
+            color: #059669;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .calculator-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .calculator-content {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .input-panel, .result-panel {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .panel-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: #059669;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .calculate-btn:hover {
+            background: #047857;
+        }
+
+        .arrow-circle {
+            width: 50px;
+            height: 50px;
+            background: #059669;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            align-self: center;
+        }
+
+        .result-item {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            color: #059669;
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding-top: 0.5rem;
+            border-top: 2px solid #059669;
+        }
+
+        .calculator-note {
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+
+        .help-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 36px;
+            height: 36px;
+            background: #059669;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            z-index: 10;
+        }
+
+        .help-icon:hover {
+            background: #047857;
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #059669;
+        }
+
+        .modal-icon {
+            width: 28px;
+            height: 28px;
+            background: #059669;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: transparent;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section-title {
+            color: #059669;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-list li {
+            padding: 0.5rem 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .modal-list li strong {
+            color: #333;
+        }
+
+        .modal-tip {
+            background: #d1fae5;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #059669;
+            margin-top: 1rem;
+        }
+
+        .modal-tip-title {
+            font-weight: 600;
+            color: #059669;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-tip-text {
+            color: #065f46;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 968px) {
+            .calculator-content {
+                grid-template-columns: 1fr;
+            }
+
+            .arrow-circle {
+                margin: 1rem auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Becasun</div>
+        <div class="nav">
+            <a href="#">Trang chủ</a>
+            <a href="#">Hóa đơn</a>
+            <a href="#" class="active">Bảng điều khiển</a>
+            <a href="#">Sổ hữu & Lịch sử</a>
+            <a href="#" class="login-btn">Đăng nhập</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Bảng điều khiển Năng lượng Cộng đồng</h1>
+        <p class="subtitle">Dữ liệu thời gian thực từ hệ thống pin năng lượng mặt trời Becasun</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Công suất hiện tại</div>
+                <div class="stat-value">1.14 <span style="font-size: 1.2rem;">kW</span></div>
+                <div class="stat-unit">Năng lượng đang sản xuất</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Năng lượng hôm nay</div>
+                <div class="stat-value">7.21 <span style="font-size: 1.2rem;">kWh</span></div>
+                <div class="stat-unit">Tổng sản xuất hôm nay</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Năng lượng tháng này</div>
+                <div class="stat-value">309.38 <span style="font-size: 1.2rem;">kWh</span></div>
+                <div class="stat-unit">Từ đầu tháng</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">CO2 tránh được</div>
+                <div class="stat-value">56.36 <span style="font-size: 1.2rem;">kg</span></div>
+                <div class="stat-unit">Tác động môi trường</div>
+            </div>
+        </div>
+
+        <div class="calculator-section">
+            <div class="help-icon" onclick="openModal()">?</div>
+            <div class="calculator-header">
+                <h2 class="calculator-title">Investment Profit Calculator</h2>
+                <p class="calculator-subtitle">Calculate your credit investment returns and payback period</p>
+            </div>
+
+            <div class="calculator-content">
+                <div class="input-panel">
+                    <h3 class="panel-title">Input Details</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Number of Credits</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="credits" class="form-input" placeholder="Enter credits" min="0">
+                            <span class="input-suffix">credits(s)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Amount to Buy</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="amount" class="form-input" value="0" readonly>
+                            <span class="input-suffix">VND</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Date of Purchase</label>
+                        <input type="date" id="purchaseDate" class="form-input">
+                    </div>
+
+                    <button class="calculate-btn" onclick="calculateResults()">Calculate Results</button>
+                </div>
+
+                <div class="arrow-circle">→</div>
+
+                <div class="result-panel">
+                    <h3 class="panel-title">Result</h3>
+                    
+                    <div class="result-item">
+                        <div class="result-label">Amount Reduced Monthly</div>
+                        <div class="result-value" id="reducedAmount">VND</div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-label">Payback Period</div>
+                        <div class="result-value" id="paybackPeriod">month(s)</div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-label">Profitable Date</div>
+                        <div class="result-value" id="profitableDate">dd/mm/yyyy</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="calculator-note">Based on constants: 764 × 2000 VND per credit annually | 3,000,000 VND per credit</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="helpModal" class="modal" onclick="closeModalOnOutside(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <div class="modal-icon">?</div>
+                <h3 class="modal-title">How to use</h3>
+            </div>
+
+            <div class="modal-section">
+                <h4 class="modal-section-title">Instructions:</h4>
+                <ul class="modal-list">
+                    <li>1. Enter the <strong>Number of Credits</strong> you plan to purchase</li>
+                    <li>2. The <strong>Amount to Buy</strong> will be calculated automatically (3,000,000 VND per credit)</li>
+                    <li>3. Enter the <strong>Date of Purchase</strong> in dd/mm/yyyy form at</li>
+                    <li>4. Click <strong>Calculate Results</strong> to see your investment analysis</li>
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h4 class="modal-section-title">Results Explained:</h4>
+                <ul class="modal-list">
+                    <li><strong>Amount Reduced Monthly:</strong> Your monthly savings based on the formula [(764 × 2000) / 12] x credits</li>
+                    <li><strong>Payback Period:</strong> Number of months until your investment breaks even</li>
+                    <li><strong>Profitable Date:</strong> The date when your investment starts generating positive returns</li>
+                </ul>
+            </div>
+
+            <div class="modal-tip">
+                <div class="modal-tip-title">Tip:</div>
+                <div class="modal-tip-text">The profitable date indicates when your investment will have fully paid for itself and begins generating net profit based on the monthly reduction amount.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openModal() {
+            document.getElementById('helpModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('helpModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnOutside(event) {
+            if (event.target.id === 'helpModal') {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Update amount when credits change
+        document.getElementById('credits').addEventListener('input', function() {
+            const credits = parseFloat(this.value) || 0;
+            const amount = credits * 3000000;
+            document.getElementById('amount').value = amount.toLocaleString('vi-VN');
+        });
+
+        function calculateResults() {
+            const credits = parseFloat(document.getElementById('credits').value) || 0;
+            const purchaseDateStr = document.getElementById('purchaseDate').value;
+
+            if (credits <= 0) {
+                alert('Vui lòng nhập số credits hợp lệ');
+                return;
+            }
+
+            if (!purchaseDateStr) {
+                alert('Vui lòng chọn ngày mua');
+                return;
+            }
+
+            // A = credits
+            const A = credits;
+            
+            // B = A * 3,000,000
+            const B = A * 3000000;
+            
+            // D = [(764 * 2000) / 12] * A
+            const D = ((764 * 2000) / 12) * A;
+            
+            // E = B / (764 * 2000) (in years)
+            const E = B / (764 * 2000);
+            
+            // Convert E to months
+            const monthsPayback = E * 12;
+
+            // Calculate profitable date
+            const purchaseDate = new Date(purchaseDateStr);
+            const profitableDate = new Date(purchaseDate);
+            profitableDate.setMonth(profitableDate.getMonth() + Math.ceil(monthsPayback));
+
+            // Display results
+            document.getElementById('reducedAmount').textContent = 
+                Math.round(D).toLocaleString('vi-VN') + ' VND';
+            
+            document.getElementById('paybackPeriod').textContent = 
+                monthsPayback.toFixed(1) + ' month(s)';
+            
+            const day = String(profitableDate.getDate()).padStart(2, '0');
+            const month = String(profitableDate.getMonth() + 1).padStart(2, '0');
+            const year = profitableDate.getFullYear();
+            document.getElementById('profitableDate').textContent = 
+                `${day}/${month}/${year}`;
+        }
+    </script>
+</body>
+</html>
