@@ -1,37 +1,190 @@
 <!DOCTYPE html>
 <html lang="vi">
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Becasun - Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Becasun – Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+
+        :root {
+            --green: #059669;
+            --green2: #047857;
+            --bg: #f5f5f5;
+            --text: #333;
+            --muted: #6b7280;
+            --card: #fff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, .08);
+            --radius: 14px;
+            --radius2: 10px;
+        }
+
+        /* Card benefit: cho layout đồng đều */
+        .grid4 .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            /* để các card cao bằng nhau trong grid */
+        }
+
+        /* Icon box: cố định, căn giữa */
+        .iconBox {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #ffff;
+            border: 1px solid #ffff;
+            border-radius: 16px;
+
+        }
+
+        /* Ảnh icon */
+        .iconImg {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Cố định chiều cao tiêu đề để card nào cũng như nhau */
+        .grid4 .card h3 {
+            min-height: 44px;
+            /* 1–2 dòng tuỳ font, chỉnh 40–52 nếu cần */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        /* Cố định chiều cao mô tả */
+        .grid4 .card p {
+            min-height: 44px;
+            /* giữ đều */
+            text-align: center;
+            margin: 0;
+        }
+
+
+
+
+        /* mini layout: icon + title nằm ngang, canh đẹp */
+        .mini {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+        }
+
+        /* iconBox giống grid4 */
+        .iconBox.iconBox--big {
+            width: 80px;
+            height: 80px;
+            /* background: #ecfdf5;
+            border: 1px solid #d1fae5; */
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 80px;
+            /* giữ cố định, không bị co */
+        }
+
+        /* ảnh icon */
+        .iconImg.iconImg--big {
+            width: 60px;
+            /* để đẹp hơn 80px, có padding */
+            height: 60px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .grid3 .card p {
+            text-align: center;
+        }
+
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
 
+
+        /* Header / Navbar */
         .header {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--card);
+            padding: 16px 28px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            position: relative;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-            z-index: 1001;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 22px;
+            letter-spacing: .2px;
+        }
+
+        .brand .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+            display: inline-block;
+        }
+
+        .nav {
+            display: flex;
+            gap: 26px;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 15px;
+            padding: 8px 8px;
+            border-radius: 8px;
+            transition: .2s;
+        }
+
+        .nav a:hover {
+            background: #f3f4f6
+        }
+
+        .nav a.active {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .nav a.login-btn {
+            color: var(--green);
+            font-weight: 700
         }
 
         .hamburger {
@@ -39,1048 +192,1832 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            z-index: 1001;
-            padding: 5px;
+            padding: 6px;
+            border-radius: 10px;
         }
 
         .hamburger span {
-            width: 25px;
+            width: 26px;
             height: 3px;
+            border-radius: 999px;
             background: #333;
-            border-radius: 2px;
-            transition: all 0.3s;
+            transition: .25s;
         }
 
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+            transform: rotate(45deg) translate(7px, 7px)
         }
 
         .hamburger.active span:nth-child(2) {
-            opacity: 0;
+            opacity: 0
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: rotate(-45deg) translate(6px, -6px)
         }
 
-        .nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .nav a.active {
-            color: #059669;
-            font-weight: 600;
-        }
-
-        .login-btn {
-            color: #059669 !important;
-            font-weight: 600;
-        }
-
+        /* Layout */
         .container {
-            max-width: 1200px;
+            max-width: 1180px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 26px
         }
 
-        .page-title {
-            color: #059669;
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+        .page {
+            display: none
         }
 
-        .subtitle {
-            color: #666;
-            margin-bottom: 2rem;
+        .page.active {
+            display: block
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        .section {
+            margin: 28px 0
         }
 
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .h1 {
+            font-size: 40px;
+            line-height: 1.1;
+            font-weight: 700;
+            color: var(--green);
             text-align: center;
+            margin-bottom: 10px;
         }
 
-        .stat-label {
+        .sub {
             color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-value {
-            color: #059669;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-unit {
-            color: #999;
-            font-size: 0.85rem;
-        }
-
-        .calculator-section {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-top: 3rem;
-            position: relative;
-        }
-
-        .calculator-header {
             text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .calculator-title {
-            color: #059669;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .calculator-subtitle {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .calculator-content {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .input-panel, .result-panel {
-            background: #f9f9f9;
-            padding: 2rem;
-            border-radius: 8px;
-        }
-
-        .panel-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-            background: white;
-        }
-
-        .input-suffix {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        .calculate-btn {
-            width: 100%;
-            padding: 0.9rem;
-            background: #059669;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .calculate-btn:hover {
-            background: #047857;
-        }
-
-        .arrow-circle {
-            width: 50px;
-            height: 50px;
-            background: #059669;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            align-self: center;
-        }
-
-        .result-item {
-            background: white;
-            padding: 1.2rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-        }
-
-        .result-label {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .result-value {
-            color: #059669;
-            font-size: 1.3rem;
-            font-weight: 600;
-            padding-top: 0.5rem;
-            border-top: 2px solid #059669;
-        }
-
-        .calculator-note {
-            text-align: center;
-            color: #666;
-            font-size: 0.85rem;
-            margin-top: 2rem;
-        }
-
-        .help-icon {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 36px;
-            height: 36px;
-            background: #059669;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            z-index: 100;
-            flex-shrink: 0;
-        }
-
-        .help-icon:hover {
-            background: #047857;
-            transform: scale(1.1);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #059669;
-        }
-
-        .modal-icon {
-            width: 28px;
-            height: 28px;
-            background: #059669;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: bold;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 30px;
-            height: 30px;
-            border: none;
-            background: transparent;
-            font-size: 1.5rem;
-            color: #666;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #333;
-        }
-
-        .modal-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-section-title {
-            color: #059669;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .modal-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .modal-list li {
-            padding: 0.5rem 0;
-            color: #555;
+            max-width: 780px;
+            margin: 0 auto;
             line-height: 1.6;
         }
 
-        .modal-list li strong {
-            color: #333;
+        /* Hero */
+        .hero {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 44px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .modal-tip {
-            background: #d1fae5;
-            padding: 1rem;
-            border-radius: 6px;
-            border-left: 4px solid #059669;
-            margin-top: 1rem;
+        .hero .logoMark {
+            width: 100px;
+            height: 100px;
+            display: grid;
+            place-items: center;
+            border-radius: 24px;
+            /* background: #ecfdf5;
+            border: 1px solid #d1fae5; */
         }
 
-        .modal-tip-title {
-            font-weight: 600;
+        .logoMark .iconImg {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            /* không méo ảnh */
+            display: block;
+        }
+
+        .hero .ctaRow {
+            display: flex;
+            gap: 14px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        .btn.primary {
+            background: var(--green);
+            color: #fff
+        }
+
+        .btn.primary:hover {
+            background: var(--green2)
+        }
+
+        .btn.outline {
+            background: #fff;
+            color: var(--green);
+            border: 1px solid #a7f3d0;
+        }
+
+        .btn.outline:hover {
+            background: #ecfdf5
+        }
+
+        .pill {
+            font-size: 13px;
+            color: #374151;
+            background: #f3f4f6;
+            padding: 10px 14px;
+            border-radius: 999px;
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pill b {
+            color: var(--green)
+        }
+
+        /* Cards */
+        .grid3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .grid4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px
+        }
+
+        .mini {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .iconBox {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            /* background: #ecfdf5;
+            border: 1px solid #d1fae5; */
+            flex: 0 0 auto;
+        }
+
+        .statGrid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .statCard {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .statCard .label {
+            color: #6b7280;
+            font-size: 13px
+        }
+
+        .statCard .value {
+            color: var(--green);
+            font-size: 28px;
+            font-weight: 900;
+            margin: 6px 0 2px
+        }
+
+        .statCard .unit {
+            color: #9ca3af;
+            font-size: 12px
+        }
+
+        /* Calculator block (reused) */
+        .calcWrap {
+            background: var(--card);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .calcHead {
+            text-align: center;
+            margin-bottom: 18px
+        }
+
+        .calcHead h2 {
+            color: var(--green);
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 6px
+        }
+
+        .calcHead p {
+            color: #666;
+            font-size: 14px
+        }
+
+        .helpIcon {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--green);
+            color: #fff;
+            font-weight: 900;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: .2s;
+            user-select: none;
+        }
+
+        .helpIcon:hover {
+            background: var(--green2);
+            transform: scale(1.05)
+        }
+
+        .calcGrid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: start;
+            margin-top: 10px;
+        }
+
+        .panel {
+            background: #f9fafb;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid #eef2f7;
+        }
+
+        .panelTitle {
+            text-align: center;
+            font-weight: 800;
+            margin-bottom: 14px;
+            font-size: 18px;
+        }
+
+        .fg {
+            margin-bottom: 14px
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: #374151;
+            font-size: 13px
+        }
+
+        .inputWrap {
+            position: relative
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            background: #fff;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #a7f3d0;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, .12)
+        }
+
+        .suffix {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+        .arrow {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--green);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            margin-top: 68px;
+            box-shadow: 0 10px 18px rgba(5, 150, 105, .25);
+        }
+
+        .resultItem {
+            background: #fff;
+            border: 1px solid #eef2f7;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .resultItem .rLabel {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 8px
+        }
+
+        .resultItem .rValue {
+            color: var(--green);
+            font-weight: 900;
+            border-top: 2px solid var(--green);
+            padding-top: 8px;
+            font-size: 18px;
+            min-height: 28px;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 14px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* Charts (simple canvas cards) */
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .chartCard {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 16px;
+        }
+
+        .chartTitle {
+            font-weight: 900;
+            color: #111827;
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .legend .box {
+            width: 14px;
+            height: 8px;
+            border-radius: 3px;
+            background: var(--green);
+        }
+
+        canvas {
+            width: 100%;
+            height: 210px;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid #eef2f7
+        }
+
+        /* Bill page */
+        .billWrap {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 26px;
+        }
+
+        .billTitle {
+            font-size: 34px;
+            text-align: center;
+            color: var(--green);
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .billTopRow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .miniBtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #a7f3d0;
+            background: #fff;
+            color: var(--green);
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .miniBtn:hover {
+            background: #ecfdf5
+        }
+
+        .billCard {
+            max-width: 520px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .06);
+            padding: 18px;
+        }
+
+        .rowLine {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e5e7eb;
+            color: #374151;
+            font-weight: 700;
+        }
+
+        .rowLine .neg {
+            color: #059669
+        }
+
+        .rowLine:last-child {
+            border-bottom: none
+        }
+
+        .payable {
+            font-size: 22px;
+            color: #111827;
+        }
+
+        /* Transactions */
+        .txnGrid {
+            display: grid;
+            grid-template-columns: 1.4fr .8fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .listBox {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 16px;
+        }
+
+        .listTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .listTop h2 {
+            font-size: 26px;
+            font-weight: 700
+        }
+
+        .badgeSelect {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .txnItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #eef2f7;
+            border-radius: 14px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+
+        .txnLeft {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chip {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #ecfdf5;
+            border: 1px solid #d1fae5;
+            display: grid;
+            place-items: center;
+        }
+
+        .txnMeta b {
+            display: block
+        }
+
+        .txnMeta small {
+            color: #6b7280
+        }
+
+        .txnDate {
+            color: #111827;
+            font-weight: 800;
+            font-size: 13px
+        }
+
+        .sideStat {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .sideStat .t {
+            color: #6b7280;
+            font-size: 13px
+        }
+
+        .sideStat .v {
+            color: #111827;
+            font-size: 34px;
+            font-weight: 900;
+            margin-top: 8px
+        }
+
+        .sideStat .v.green {
+            color: var(--green)
+        }
+
+        .sideStat .u {
+            color: #9ca3af;
+            font-size: 12px;
+            margin-top: 2px
+        }
+
+        /* FAQ */
+        .faqWrap {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px;
+        }
+
+        .faqTitle {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .faqItem {
+            border: 1px solid #eef2f7;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: #fff;
+        }
+
+        .faqQ {
+            font-weight: 900;
+            margin-bottom: 6px
+        }
+
+        .faqA {
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 14px
+        }
+
+        /* Activities */
+        .actGrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px
+        }
+
+        .actCard {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #eef2f7;
+        }
+
+        .actImg {
+            height: 180px;
+            /* chỉnh 160–220 tuỳ bạn */
+            overflow: hidden;
+            border-radius: 14px 14px 0 0;
+            background: #f3f4f6;
+        }
+
+        .actImg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* cắt ảnh cho đẹp như mẫu */
+            display: block;
+        }
+
+
+        .actBody {
+            padding: 14px
+        }
+
+        .actBody h3 {
+            color: var(--green);
+            font-size: 16px;
+            margin-bottom: 8px
+        }
+
+        .actBody p {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6
+        }
+
+        .actFoot {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-top: 1px solid #eef2f7;
             color: #059669;
-            margin-bottom: 0.25rem;
+            font-weight: 900;
+            font-size: 13px;
         }
 
-        .modal-tip-text {
+        .center {
+            display: flex;
+            justify-content: center;
+            margin-top: 14px
+        }
+
+        /* Login modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+
+        .modal.show {
+            display: flex
+        }
+
+        .modalCard {
+            width: min(520px, 92vw);
+            background: #fff;
+            border-radius: 20px;
+            padding: 26px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, .25);
+            position: relative;
+        }
+
+        .modalCard h2 {
+            font-size: 34px;
+            margin-bottom: 14px
+        }
+
+        .xBtn {
+            position: absolute;
+            right: 14px;
+            top: 14px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            display: grid;
+            place-items: center;
+        }
+
+        .rowBetween {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            color: #6b7280;
+        }
+
+        .rowBetween a {
+            color: #6b7280;
+            text-decoration: none
+        }
+
+        .rowBetween a:hover {
+            color: #111827;
+            text-decoration: underline
+        }
+
+        .checkRow {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px
+        }
+
+        /* Help Modal (Calculator) */
+        .helpModal .modalCard {
+            width: min(700px, 92vw)
+        }
+
+        .helpModal h3 {
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .helpModal .hr {
+            height: 2px;
+            background: #d1fae5;
+            margin: 12px 0 16px;
+            border-radius: 99px
+        }
+
+        .helpModal ul {
+            list-style: none
+        }
+
+        .helpModal li {
+            padding: 8px 0;
+            color: #4b5563;
+            line-height: 1.6
+        }
+
+        .tip {
+            margin-top: 12px;
+            background: #d1fae5;
+            border-left: 4px solid var(--green);
+            border-radius: 12px;
+            padding: 12px;
             color: #065f46;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.6;
+            font-weight: 700;
+        }
+        
+        
+
+        /* Print (Bill PDF) */
+        @media print {
+            body {
+                background: #fff
+            }
+
+            .header,
+            .nav,
+            .hamburger,
+            .container>*:not(#page-bill),
+            .miniBtn#printBtn {
+                display: none !important
+            }
+
+            #page-bill {
+                display: block !important
+            }
+
+            .container {
+                padding: 0
+            }
+
+            .billWrap {
+                box-shadow: none;
+                border-radius: 0
+            }
         }
 
-        /* Tablet - Samsung Tab S9 SE (800x1280) */
-        @media (max-width: 968px) {
-            .calculator-content {
-                grid-template-columns: 1fr;
+        /* Responsive */
+        @media (max-width: 980px) {
+            .grid3 {
+                grid-template-columns: 1fr
             }
 
-            .arrow-circle {
-                margin: 1rem auto;
+            .grid4 {
+                grid-template-columns: repeat(2, 1fr)
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .actGrid {
+                grid-template-columns: 1fr
+            }
+
+            .statGrid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .grid2 {
+                grid-template-columns: 1fr
+            }
+
+            .calcGrid {
+                grid-template-columns: 1fr
+            }
+
+            .arrow {
+                margin: 0 auto
+            }
+
+            .txnGrid {
+                grid-template-columns: 1fr
             }
         }
 
-        /* Mobile Large - Samsung S22 Ultra (480x960) */
-        @media (max-width: 768px) {
+        @media (max-width: 820px) {
             .hamburger {
-                display: flex;
-            }
-
-            .header {
-                padding: 1rem;
+                display: flex
             }
 
             .nav {
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 70%;
-                max-width: 300px;
+                width: min(320px, 78vw);
                 height: 100vh;
-                background: white;
+                background: #fff;
                 flex-direction: column;
-                gap: 0;
-                padding: 80px 0 20px 0;
-                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-                transition: right 0.3s ease;
+                align-items: stretch;
+                padding: 76px 10px 20px;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, .12);
+                transition: right .25s ease;
                 z-index: 1000;
-                overflow-y: auto;
             }
 
             .nav.active {
-                right: 0;
+                right: 0
             }
 
             .nav a {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-                border-bottom: 1px solid #f0f0f0;
-                display: block;
+                padding: 14px 14px
             }
 
-            .nav a:hover {
-                background: #f5f5f5;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            .page-title {
-                font-size: 1.4rem;
-            }
-
-            .subtitle {
-                font-size: 0.9rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .stat-card {
-                padding: 1.25rem;
-            }
-
-            .stat-value {
-                font-size: 1.6rem;
-            }
-
-            .calculator-section {
-                padding: 1.5rem 1rem;
-                margin-top: 2rem;
-            }
-
-            .calculator-title {
-                font-size: 1.5rem;
-                padding-right: 40px;
-            }
-
-            .calculator-subtitle {
-                font-size: 0.85rem;
-            }
-
-            .help-icon {
-                top: 1.25rem;
-                right: 1rem;
-                width: 34px;
-                height: 34px;
-                font-size: 1.15rem;
-            }
-
-            .calculator-content {
-                gap: 1.5rem;
-            }
-
-            .input-panel, .result-panel {
-                padding: 1.5rem;
-            }
-
-            .panel-title {
-                font-size: 1.1rem;
-            }
-
-            .form-input {
-                padding: 0.7rem 0.85rem;
-                font-size: 0.95rem;
-            }
-
-            .form-input[type="date"] {
-                padding: 0.7rem 0.5rem;
-            }
-
-            .calculate-btn {
-                padding: 0.85rem;
-                font-size: 0.95rem;
-            }
-
-            .result-value {
-                font-size: 1.15rem;
-            }
-
-            .calculator-note {
-                font-size: 0.75rem;
-                padding: 0 0.5rem;
-            }
-
-            .arrow-circle {
-                width: 42px;
-                height: 42px;
-                font-size: 1.3rem;
-            }
-
-            .modal-content {
-                padding: 1.5rem;
-                width: 95%;
-            }
-
-            .modal-title {
-                font-size: 1.2rem;
-            }
-
-            .modal-section-title {
-                font-size: 1rem;
-            }
-
-            .modal-list li {
-                font-size: 0.9rem;
-                padding: 0.4rem 0;
-            }
-        }
-
-        /* Mobile Small - iPhone SE 2020 (375x667) */
-        @media (max-width: 480px) {
             .header {
-                padding: 0.75rem 1rem;
-            }
-
-            .logo {
-                font-size: 1.25rem;
-            }
-
-            .nav {
-                width: 75%;
-                max-width: 280px;
-            }
-
-            .nav a {
-                padding: 0.9rem 1.5rem;
-                font-size: 0.95rem;
+                padding: 14px 16px
             }
 
             .container {
-                padding: 0.75rem;
+                padding: 18px
             }
 
-            .page-title {
-                font-size: 1.2rem;
-                margin-bottom: 0.3rem;
-            }
-
-            .subtitle {
-                font-size: 0.8rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .stats-grid {
-                gap: 0.75rem;
-            }
-
-            .stat-card {
-                padding: 1rem;
-            }
-
-            .stat-label {
-                font-size: 0.8rem;
-            }
-
-            .stat-value {
-                font-size: 1.4rem;
-            }
-
-            .stat-value span {
-                font-size: 1rem !important;
-            }
-
-            .stat-unit {
-                font-size: 0.75rem;
-            }
-
-            .calculator-section {
-                padding: 1.25rem 0.75rem;
-                margin-top: 1.5rem;
-            }
-
-            .calculator-title {
-                font-size: 1.25rem;
-                padding-right: 35px;
-            }
-
-            .calculator-subtitle {
-                font-size: 0.8rem;
-            }
-
-            .help-icon {
-                top: 1rem;
-                right: 0.75rem;
-                width: 30px;
-                height: 30px;
-                font-size: 1rem;
-            }
-
-            .calculator-content {
-                gap: 1rem;
-            }
-
-            .input-panel, .result-panel {
-                padding: 1.25rem 1rem;
-            }
-
-            .panel-title {
-                font-size: 1rem;
-                margin-bottom: 1rem;
-            }
-
-            .form-group {
-                margin-bottom: 1rem;
-            }
-
-            .form-label {
-                font-size: 0.85rem;
-                margin-bottom: 0.4rem;
-            }
-
-            .form-input {
-                padding: 0.65rem 0.75rem;
-                font-size: 0.9rem;
-            }
-
-            .form-input[type="date"] {
-                padding: 0.65rem 0.5rem;
-                font-size: 0.85rem;
-            }
-
-            .input-suffix {
-                font-size: 0.75rem;
-                right: 0.75rem;
-            }
-
-            .calculate-btn {
-                padding: 0.75rem;
-                font-size: 0.9rem;
-            }
-
-            .arrow-circle {
-                width: 36px;
-                height: 36px;
-                font-size: 1.1rem;
-                margin: 0.75rem auto;
-            }
-
-            .result-item {
-                padding: 1rem;
-                margin-bottom: 0.75rem;
-            }
-
-            .result-label {
-                font-size: 0.8rem;
-            }
-
-            .result-value {
-                font-size: 1rem;
-                padding-top: 0.4rem;
-            }
-
-            .calculator-note {
-                font-size: 0.65rem;
-                margin-top: 1.5rem;
-                line-height: 1.4;
-            }
-
-            .modal-content {
-                padding: 1.25rem;
-                width: 95%;
-                max-height: 85vh;
-            }
-
-            .modal-header {
-                margin-bottom: 1rem;
-                padding-bottom: 0.75rem;
-            }
-
-            .modal-icon {
-                width: 24px;
-                height: 24px;
-                font-size: 0.9rem;
-            }
-
-            .modal-title {
-                font-size: 1.05rem;
-            }
-
-            .close-btn {
-                top: 1rem;
-                right: 1rem;
-                width: 26px;
-                height: 26px;
-                font-size: 1.3rem;
-            }
-
-            .modal-section {
-                margin-bottom: 1rem;
-            }
-
-            .modal-section-title {
-                font-size: 0.9rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .modal-list li {
-                font-size: 0.8rem;
-                padding: 0.35rem 0;
-                line-height: 1.5;
-            }
-
-            .modal-tip {
-                padding: 0.75rem;
-                margin-top: 0.75rem;
-            }
-
-            .modal-tip-title {
-                font-size: 0.85rem;
-            }
-
-            .modal-tip-text {
-                font-size: 0.75rem;
-            }
-        }
-
-        /* Very Small Screens */
-        @media (max-width: 360px) {
-            .logo {
-                font-size: 1.1rem;
-            }
-
-            .nav {
-                font-size: 0.75rem;
-                gap: 0.5rem;
-            }
-
-            .page-title {
-                font-size: 1.1rem;
-            }
-
-            .calculator-title {
-                font-size: 1.1rem;
-            }
-
-            .stat-value {
-                font-size: 1.2rem;
+            .h1 {
+                font-size: 34px
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="header">
-        <div class="logo">Becasun</div>
-        <div class="hamburger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="nav" id="navMenu">
-            <a href="#">Trang chủ</a>
-            <a href="#">Hóa đơn</a>
-            <a href="#" class="active">Bảng điều khiển</a>
-            <a href="#">Sổ hữu & Lịch sử</a>
-            <a href="#" class="login-btn">Đăng nhập</a>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1 class="page-title">Bảng điều khiển Năng lượng Cộng đồng</h1>
-        <p class="subtitle">Dữ liệu thời gian thực từ hệ thống pin năng lượng mặt trời Becasun</p>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Công suất hiện tại</div>
-                <div class="stat-value">1.14 <span style="font-size: 1.2rem;">kW</span></div>
-                <div class="stat-unit">Năng lượng đang sản xuất</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Năng lượng hôm nay</div>
-                <div class="stat-value">7.21 <span style="font-size: 1.2rem;">kWh</span></div>
-                <div class="stat-unit">Tổng sản xuất hôm nay</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Năng lượng tháng này</div>
-                <div class="stat-value">309.38 <span style="font-size: 1.2rem;">kWh</span></div>
-                <div class="stat-unit">Từ đầu tháng</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">CO2 tránh được</div>
-                <div class="stat-value">56.36 <span style="font-size: 1.2rem;">kg</span></div>
-                <div class="stat-unit">Tác động môi trường</div>
-            </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="brand">
+            <span class="dot"></span> Becasun
         </div>
 
-        <div class="calculator-section">
-            <div class="help-icon" onclick="openModal()">?</div>
-            <div class="calculator-header">
-                <h2 class="calculator-title">Investment Profit Calculator</h2>
-                <p class="calculator-subtitle">Calculate your credit investment returns and payback period</p>
-            </div>
+        <nav class="nav" id="navMenu">
+            <a href="#home" data-route="home" class="active">Home</a>
+            <a href="#bill" data-route="bill">Bill</a>
+            <a href="#dashboard" data-route="dashboard">Dashboard</a>
+            <a href="#transactions" data-route="transactions">Transactions</a>
+            <a href="#login" id="openLogin" class="login-btn">Login</a>
+        </nav>
 
-            <div class="calculator-content">
-                <div class="input-panel">
-                    <h3 class="panel-title">Input Details</h3>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Number of Credits</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="credits" class="form-input" placeholder="Enter credits" min="0">
-                            <span class="input-suffix">credits(s)</span>
-                        </div>
-                    </div>
+        <div class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
 
-                    <div class="form-group">
-                        <label class="form-label">Amount to Buy</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="amount" class="form-input" value="0" readonly>
-                            <span class="input-suffix">VND</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Date of Purchase</label>
-                        <input type="date" id="purchaseDate" class="form-input">
-                    </div>
-
-                    <button class="calculate-btn" onclick="calculateResults()">Calculate Results</button>
+    <main class="container">
+        <!-- HOME -->
+        <section id="page-home" class="page active">
+            <div class="hero">
+                <div class="logoMark" aria-hidden="true">
+                    <!-- simple solar icon -->
+                    <img src="\image\Copilot_20251125_102219.png" alt="Annual returns icon" class="iconImg" />
                 </div>
 
-                <div class="arrow-circle">→</div>
+                <div class="h1">Becasun Community Solar Energy Investment</div>
+                <p class="sub">Safe – Sustainable – Stable Monthly Returns. Join us in the journey to green Vietnam’s
+                    future.</p>
 
-                <div class="result-panel">
-                    <h3 class="panel-title">Result</h3>
-                    
-                    <div class="result-item">
-                        <div class="result-label">Amount Reduced Monthly</div>
-                        <div class="result-value" id="reducedAmount">VND</div>
+                <div class="ctaRow">
+                    <button class="btn primary" onclick="goRoute('login')">Join now</button>
+                    <button class="btn outline" onclick="scrollToId('how')">Learn more</button>
+                </div>
+
+                <div class="pill">
+                    <span>Annual Returns: <b>6–12%</b></span>
+                    <span>•</span>
+                    <span>Real-time Monitoring</span>
+                    <span>•</span>
+                    <span>Safe & Transparent</span>
+                </div>
+            </div>
+
+            <div class="section" id="how">
+                <h2 class="h1" style="font-size:32px;color:#111827">How does Becasun work?</h2>
+
+                <div class="grid3" style="margin-top:18px">
+                    <!-- Card 1 -->
+                    <div class="card">
+                        <div class="mini">
+                            <div class="iconBox iconBox--big" aria-hidden="true">
+                                <img src="image/Copilot_20251125_102823.png" alt="icon" class="iconImg iconImg--big">
+                            </div>
+                            <h3>1. Purchase Energy Credits</h3>
+                        </div>
+                        <p>Chọn số lượng credits muốn sở hữu. Mỗi credit đại diện phần công suất hệ thống điện mặt trời
+                            bạn góp vốn.</p>
                     </div>
 
-                    <div class="result-item">
-                        <div class="result-label">Payback Period</div>
-                        <div class="result-value" id="paybackPeriod">month(s)</div>
+                    <!-- Card 2 -->
+                    <div class="card">
+                        <div class="mini">
+                            <div class="iconBox iconBox--big" aria-hidden="true">
+                                <img src="image/Copilot_20251125_102823.png" alt="icon" class="iconImg iconImg--big">
+                            </div>
+                            <h3>2. Solar System Generates Power</h3>
+                        </div>
+                        <p>Credits của bạn được quy đổi thành phần điện năng tạo ra. Dữ liệu giám sát theo thời gian
+                            thực (IoT/inverter).</p>
                     </div>
 
-                    <div class="result-item">
-                        <div class="result-label">Profitable Date</div>
-                        <div class="result-value" id="profitableDate">dd/mm/yyyy</div>
+                    <!-- Card 3 -->
+                    <div class="card">
+                        <div class="mini">
+                            <div class="iconBox iconBox--big" aria-hidden="true">
+                                <img src="image/Copilot_20251125_102823.png" alt="icon" class="iconImg iconImg--big">
+                            </div>
+                            <h3>3. Receive Monthly Returns</h3>
+                        </div>
+                        <p>Nhận lợi ích theo tháng từ tiết kiệm hóa đơn điện/ lợi nhuận điện năng tạo ra. Minh bạch & dễ
+                            theo dõi.</p>
                     </div>
                 </div>
             </div>
 
-            <p class="calculator-note">Based on constants: 764 × 2000 VND per credit annually | 3,000,000 VND per credit</p>
+
+            <div class="section">
+                <h2 class="h1" style="font-size:32px;color:#111827">Benefits of Investing with Becasun</h2>
+
+                <div class="grid4" style="margin-top:18px">
+
+                    <div class="card" style="text-align:center">
+                        <div class="iconBox" style="margin:0 auto 50px">
+                            <img src="/image/Copilot_20251125_102823.png" alt="Annual returns icon" class="iconImg" />
+                        </div>
+
+                        <h4 style="margin-bottom:6px">Annual Returns: 6–12%</h4>
+                        <p>Based on actual solar-energy production.</p>
+                    </div>
+
+
+                    <div class="card" style="text-align:center">
+                        <div class="iconBox" style="margin:0 auto 50px">
+                            <img src="/image/Copilot_20251125_103042.png" alt="Annual returns icon" class="iconImg" />
+                        </div>
+                        <h4 style="margin-bottom:6px">Real-Time Monitoring</h4>
+                        <p>IoT tracks system capacity and output in real time.</p>
+                    </div>
+
+                    <div class="card" style="text-align:center">
+                        <div class="iconBox" style="margin:0 auto 50px">
+                            <img src="/image/Copilot_20251125_103130.png" alt="Annual returns icon" class="iconImg" />
+
+                        </div>
+                        <h4 style="margin-bottom:6px">Safe & Transparent</h4>
+                        <p>Public data and clear, transparent processes.</p>
+                    </div>
+
+                    <div class="card" style="text-align:center">
+                        <div class="iconBox" style="margin:0 auto 50px">
+                            <img src="/image/Copilot_20251125_103333.png" alt="Annual returns icon" class="iconImg" />
+                        </div>
+                        <h4 style="margin-bottom:6px">Long-Term Stability</h4>
+                        <p>Solar energy is expected to grow strongly from 2025 to 2030.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator on Home -->
+            <div class="section">
+                <div class="calcWrap" data-calc="home">
+                    <div class="helpIcon" onclick="openHelp()">?</div>
+                    <div class="calcHead">
+                        <h2>Investment Profit Calculator</h2>
+                        <p>Calculate your credit investment returns and payback period</p>
+                    </div>
+
+                    <div class="calcGrid">
+                        <div class="panel">
+                            <div class="panelTitle">Input Details</div>
+
+                            <div class="fg">
+                                <label>Number of Credits</label>
+                                <div class="inputWrap">
+                                    <input type="number" class="credits" placeholder="Enter credits" min="0" />
+                                    <span class="suffix">credits(s)</span>
+                                </div>
+                            </div>
+
+                            <div class="fg">
+                                <label>Amount to Buy</label>
+                                <div class="inputWrap">
+                                    <input type="text" class="amount" value="0" readonly />
+                                    <span class="suffix">VND</span>
+                                </div>
+                            </div>
+
+                            <div class="fg">
+                                <label>Date of Purchase</label>
+                                <input type="date" class="purchaseDate" />
+                            </div>
+
+                            <button class="btn primary" style="width:100%" onclick="calculateResults('home')">Calculate
+                                Results</button>
+                        </div>
+
+                        <div class="arrow">→</div>
+
+                        <div class="panel" style="background:#f0fdf4;border-color:#d1fae5">
+                            <div class="panelTitle">Result</div>
+
+                            <div class="resultItem">
+                                <div class="rLabel">Amount Reduced Monthly</div>
+                                <div class="rValue reducedAmount">VND</div>
+                            </div>
+
+                            <div class="resultItem">
+                                <div class="rLabel">Payback Period</div>
+                                <div class="rValue paybackPeriod">month(s)</div>
+                            </div>
+
+                            <div class="resultItem">
+                                <div class="rLabel">Profitable Date</div>
+                                <div class="rValue profitableDate">dd/mm/yyyy</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">Based on constants: 764 × 2000 VND per credit annually | 3,000,000 VND per credit
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="h1" style="font-size:32px;color:#111827">Sustainable Development Activities</h2>
+
+                <div class="actGrid" style="margin-top:18px">
+                    <div class="actCard">
+                        <div class="actImg">
+                            <img src="/image/ground-mounted-solar-power-plant.png" alt="Solar Field">
+                        </div>
+
+                        <div class="actBody">
+                            <h3>Green Tree Planting</h3>
+                            <p>Participate in community programs to support local ecosystems, reduce carbon emissions,
+                                and improve air quality.</p>
+                        </div>
+
+                        <div class="actFoot">
+                            <span>1,200+<br /><span style="font-weight:700;color:#6b7280">Trees planted</span></span>
+                            <span>85%<br /><span style="font-weight:700;color:#6b7280">Survival rate</span></span>
+                        </div>
+                    </div>
+
+
+                    <div class="actCard">
+                        <div class="actImg">
+                            <img src="/image/ground-mounted-solar-power-plant.png" alt="Solar Field">
+                        </div>
+
+                        <div class="actBody">
+                            <h3>Green Tree Planting</h3>
+                            <p>Participate in community programs to support local ecosystems, reduce carbon emissions,
+                                and improve air quality.</p>
+                        </div>
+
+                        <div class="actFoot">
+                            <span>1,200+<br /><span style="font-weight:700;color:#6b7280">Trees planted</span></span>
+                            <span>85%<br /><span style="font-weight:700;color:#6b7280">Survival rate</span></span>
+                        </div>
+                    </div>
+
+
+                    <div class="actCard">
+                        <div class="actImg">
+                            <img src="/image/ground-mounted-solar-power-plant.png" alt="Solar Field">
+                        </div>
+
+                        <div class="actBody">
+                            <h3>Green Tree Planting</h3>
+                            <p>Participate in community programs to support local ecosystems, reduce carbon emissions,
+                                and improve air quality.</p>
+                        </div>
+
+                        <div class="actFoot">
+                            <span>1,200+<br /><span style="font-weight:700;color:#6b7280">Trees planted</span></span>
+                            <span>85%<br /><span style="font-weight:700;color:#6b7280">Survival rate</span></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="center">
+                    <button class="btn primary">Show more</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="faqWrap">
+                    <div class="faqTitle">Frequently Asked Questions</div>
+
+                    <div class="faqItem">
+                        <div class="faqQ">What is a Credit?</div>
+                        <div class="faqA">A credit represents the share of solar capacity you own in the solar power
+                            system.</div>
+                    </div>
+
+                    <div class="faqItem">
+                        <div class="faqQ">Where do the returns come from?</div>
+                        <div class="faqA">Returns come from the electricity generated and the savings from reduced
+                            energy costs.</div>
+                    </div>
+
+                    <div class="faqItem">
+                        <div class="faqQ">Can I withdraw before maturity?</div>
+                        <div class="faqA">Yes. You can sell your credits back to Becasun or to other investors.</div>
+                    </div>
+
+                    <div class="faqItem">
+                        <div class="faqQ">Is the IoT data accurate?</div>
+                        <div class="faqA">Data is updated directly from EVN-standard inverters in real time.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section id="page-dashboard" class="page">
+            <div class="section">
+                <h2 style="font-size:26px;font-weight:900;color:var(--green);margin-bottom:6px">Dashboard</h2>
+                <p style="color:#6b7280;margin-bottom:14px">Real-time data from the Becasun solar power system</p>
+
+                <div class="statGrid">
+                    <div class="statCard">
+                        <div class="label">Current Power</div>
+                        <div class="value">1.14 <span style="font-size:16px;font-weight:900">kW</span></div>
+                        <div class="unit">Current energy production</div>
+                    </div>
+                    <div class="statCard">
+                        <div class="label">Energy Today</div>
+                        <div class="value">7.21 <span style="font-size:16px;font-weight:900">kWh</span></div>
+                        <div class="unit">Total Production Today</div>
+                    </div>
+                    <div class="statCard">
+                        <div class="label">Energy Current Month</div>
+                        <div class="value">309.38 <span style="font-size:16px;font-weight:900">kWh</span></div>
+                        <div class="unit">From month start</div>
+                    </div>
+                    <div class="statCard">
+                        <div class="label">CO2 Avoided</div>
+                        <div class="value">56.36 <span style="font-size:16px;font-weight:900">kg</span></div>
+                        <div class="unit">Environmental Impact</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section grid2">
+                <div class="chartCard">
+                    <div class="chartTitle">
+                        Real-time Yield Curve
+                        <div class="legend"><span class="box"></span> Yield (kW)</div>
+                    </div>
+                    <canvas id="yieldChart" width="900" height="360"></canvas>
+                </div>
+
+                <div class="chartCard">
+                    <div class="chartTitle">
+                        Monthly Electricity Savings (10/2024 - 05/2025)
+                        <div class="legend"><span class="box"></span> Saving (VND)</div>
+                    </div>
+                    <canvas id="savingChart" width="900" height="360"></canvas>
+                </div>
+            </div>
+
+            <!-- Calculator on Dashboard (reused) -->
+            <div class="section">
+                <div class="calcWrap" data-calc="dashboard">
+                    <div class="helpIcon" onclick="openHelp()">?</div>
+                    <div class="calcHead">
+                        <h2>Investment Profit Calculator</h2>
+                        <p>Calculate your credit investment returns and payback period</p>
+                    </div>
+
+                    <div class="calcGrid">
+                        <div class="panel">
+                            <div class="panelTitle">Input Details</div>
+
+                            <div class="fg">
+                                <label>Number of Credits</label>
+                                <div class="inputWrap">
+                                    <input type="number" class="credits" placeholder="Enter credits" min="0" />
+                                    <span class="suffix">credits(s)</span>
+                                </div>
+                            </div>
+
+                            <div class="fg">
+                                <label>Amount to Buy</label>
+                                <div class="inputWrap">
+                                    <input type="text" class="amount" value="0" readonly />
+                                    <span class="suffix">VND</span>
+                                </div>
+                            </div>
+
+                            <div class="fg">
+                                <label>Date of Purchase</label>
+                                <input type="date" class="purchaseDate" />
+                            </div>
+
+                            <button class="btn primary" style="width:100%"
+                                onclick="calculateResults('dashboard')">Calculate Results</button>
+                        </div>
+
+                        <div class="arrow">→</div>
+
+                        <div class="panel" style="background:#f0fdf4;border-color:#d1fae5">
+                            <div class="panelTitle">Result</div>
+
+                            <div class="resultItem">
+                                <div class="rLabel">Amount Reduced Monthly</div>
+                                <div class="rValue reducedAmount">VND</div>
+                            </div>
+
+                            <div class="resultItem">
+                                <div class="rLabel">Payback Period</div>
+                                <div class="rValue paybackPeriod">month(s)</div>
+                            </div>
+
+                            <div class="resultItem">
+                                <div class="rLabel">Profitable Date</div>
+                                <div class="rValue profitableDate">dd/mm/yyyy</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">Based on constants: 764 × 2000 VND per credit annually | 3,000,000 VND per credit
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BILL -->
+        <section id="page-bill" class="page">
+            <div class="billWrap">
+                <div class="billTitle">Mothly electricity bill discount</div>
+
+                <div class="billTopRow">
+                    <select id="billMonth" style="width:auto;min-width:120px">
+                        <option value="10/2025" selected>10/2025</option>
+                        <option value="11/2025">11/2025</option>
+                        <option value="12/2025">12/2025</option>
+                        <option value="01/2026">01/2026</option>
+                    </select>
+
+                    <button class="miniBtn" id="printBtn" onclick="saveBillPDF()">
+                        <!-- download icon -->
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3v10" stroke="#059669" stroke-width="2" stroke-linecap="round" />
+                            <path d="M8 11l4 4 4-4" stroke="#059669" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M4 21h16" stroke="#059669" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        Save PDF
+                    </button>
+                </div>
+
+                <div class="billCard" id="billCard">
+                    <div class="rowLine">
+                        <span>Initial Bill Amount</span>
+                        <span id="initialBill">2.817.000 VND</span>
+                    </div>
+                    <div class="rowLine">
+                        <span style="color:var(--green)">Discount From Credit</span>
+                        <span class="neg" id="discount">-868.300 VND</span>
+                    </div>
+                    <div class="rowLine" style="border-bottom:none;padding-top:14px">
+                        <span class="payable">Amount payable</span>
+                        <span class="payable" style="color:var(--green)" id="payable">1.948.700 VND</span>
+                    </div>
+                </div>
+
+                <div class="note" style="margin-top:16px">
+                    Demo: đổi tháng để thấy số liệu thay đổi (dữ liệu mẫu).
+                </div>
+            </div>
+        </section>
+
+        <!-- TRANSACTIONS -->
+        <section id="page-transactions" class="page">
+            <div class="txnGrid">
+                <div class="listBox">
+                    <div class="listTop">
+                        <h2>Transactions</h2>
+                        <div class="badgeSelect">
+                            <small style="color:#6b7280;font-weight:800">Year:</small>
+                            <select id="txnYear" style="width:auto;min-width:110px">
+                                <option value="2025" selected>2025</option>
+                                <option value="2026">2026</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="txnList"></div>
+                </div>
+
+                <div>
+                    <div class="sideStat">
+                        <div class="t">Total Credits Owned</div>
+                        <div class="v" id="totalCredits">12</div>
+                    </div>
+                    <div class="sideStat">
+                        <div class="t">Total Savings</div>
+                        <div class="v green" style="font-size:28px" id="totalSavings">8.683.000</div>
+                        <div class="u">VND</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal" id="loginModal" onclick="closeOnOutside(event,'loginModal')">
+        <div class="modalCard">
+            <button class="xBtn" onclick="closeModal('loginModal')">×</button>
+            <h2>Sign in</h2>
+
+            <div class="fg">
+                <label>Email or phone number</label>
+                <input type="text" id="loginUser" placeholder="Enter email or phone" />
+            </div>
+
+            <div class="fg">
+                <label>Password</label>
+                <div class="inputWrap">
+                    <input type="password" id="loginPass" placeholder="Enter password" />
+                    <span class="suffix" style="cursor:pointer;pointer-events:auto" onclick="togglePass()">👁</span>
+                </div>
+            </div>
+
+            <button class="btn primary" style="width:100%" onclick="fakeLogin()">Sign in</button>
+
+            <div class="rowBetween">
+                <label class="checkRow">
+                    <input type="checkbox" id="rememberMe" />
+                    Remember me
+                </label>
+                <a href="javascript:void(0)" onclick="alert('Demo only 😄')">Need help?</a>
+            </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="helpModal" class="modal" onclick="closeModalOnOutside(event)">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">×</button>
-            <div class="modal-header">
-                <div class="modal-icon">?</div>
-                <h3 class="modal-title">How to use</h3>
-            </div>
+    <!-- HELP MODAL (Calculator) -->
+    <div class="modal helpModal" id="helpModal" onclick="closeOnOutside(event,'helpModal')">
+        <div class="modalCard">
+            <button class="xBtn" onclick="closeModal('helpModal')">×</button>
+            <h3>
+                <span
+                    style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:900">?</span>
+                How to use
+            </h3>
+            <div class="hr"></div>
 
-            <div class="modal-section">
-                <h4 class="modal-section-title">Instructions:</h4>
-                <ul class="modal-list">
-                    <li>1. Enter the <strong>Number of Credits</strong> you plan to purchase</li>
-                    <li>2. The <strong>Amount to Buy</strong> will be calculated automatically (3,000,000 VND per credit)</li>
-                    <li>3. Enter the <strong>Date of Purchase</strong> in dd/mm/yyyy form at</li>
-                    <li>4. Click <strong>Calculate Results</strong> to see your investment analysis</li>
-                </ul>
-            </div>
+            <h4 style="color:var(--green);font-weight:900;margin-bottom:8px">Instructions:</h4>
+            <ul>
+                <li>1. Enter the <b>Number of Credits</b> you plan to purchase</li>
+                <li>2. The <b>Amount to Buy</b> will be calculated automatically (3,000,000 VND per credit)</li>
+                <li>3. Enter the <b>Date of Purchase</b></li>
+                <li>4. Click <b>Calculate Results</b> to see your investment analysis</li>
+            </ul>
 
-            <div class="modal-section">
-                <h4 class="modal-section-title">Results Explained:</h4>
-                <ul class="modal-list">
-                    <li><strong>Amount Reduced Monthly:</strong> Your monthly savings based on the formula [(764 × 2000) / 12] x credits</li>
-                    <li><strong>Payback Period:</strong> Number of months until your investment breaks even</li>
-                    <li><strong>Profitable Date:</strong> The date when your investment starts generating positive returns</li>
-                </ul>
-            </div>
+            <h4 style="color:var(--green);font-weight:900;margin:14px 0 8px">Results Explained:</h4>
+            <ul>
+                <li><b>Amount Reduced Monthly:</b> monthly savings = [(764 × 2000) / 12] × credits</li>
+                <li><b>Payback Period:</b> months until investment breaks even</li>
+                <li><b>Profitable Date:</b> date when investment starts generating net profit</li>
+            </ul>
 
-            <div class="modal-tip">
-                <div class="modal-tip-title">Tip:</div>
-                <div class="modal-tip-text">The profitable date indicates when your investment will have fully paid for itself and begins generating net profit based on the monthly reduction amount.</div>
+            <div class="tip">
+                Tip: Profitable date = Purchase date + Payback months (rounded up).
             </div>
         </div>
     </div>
 
     <script>
-        // Toggle mobile menu
-        function toggleMenu() {
-            const nav = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            nav.classList.toggle('active');
-            hamburger.classList.toggle('active');
+        /* ---------------------------
+          SPA ROUTING + NAV
+        ---------------------------- */
+        const pages = ["home", "bill", "dashboard", "transactions"];
+        function goRoute(route) {
+            if (route === "login") {
+                openModal("loginModal");
+                return;
+            }
+            const hash = "#" + route;
+            if (location.hash !== hash) location.hash = hash;
+            renderRoute();
         }
 
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                const nav = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                nav.classList.remove('active');
-                hamburger.classList.remove('active');
+        function renderRoute() {
+            let route = (location.hash || "#home").replace("#", "");
+            if (!pages.includes(route)) route = "home";
+
+            // show page
+            pages.forEach(p => {
+                document.getElementById("page-" + p).classList.toggle("active", p === route);
+            });
+
+            // nav active
+            document.querySelectorAll(".nav a[data-route]").forEach(a => {
+                a.classList.toggle("active", a.dataset.route === route);
+            });
+
+            // close mobile menu if open
+            closeMenu();
+
+            // if dashboard first time, draw charts
+            if (route === "dashboard") {
+                drawAllCharts();
+            }
+        }
+
+        // hamburger menu
+        const navMenu = document.getElementById("navMenu");
+        const hamburger = document.getElementById("hamburger");
+        hamburger.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+            hamburger.classList.toggle("active");
+        });
+
+        function closeMenu() {
+            navMenu.classList.remove("active");
+            hamburger.classList.remove("active");
+        }
+
+        // close menu on outside click
+        document.addEventListener("click", (e) => {
+            const isInsideNav = navMenu.contains(e.target);
+            const isHamb = hamburger.contains(e.target);
+            if (!isInsideNav && !isHamb && navMenu.classList.contains("active")) closeMenu();
+        });
+
+        // click nav links
+        document.querySelectorAll(".nav a[data-route]").forEach(a => {
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                goRoute(a.dataset.route);
             });
         });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const nav = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const isClickInsideNav = nav.contains(event.target);
-            const isClickOnHamburger = hamburger.contains(event.target);
-            
-            if (!isClickInsideNav && !isClickOnHamburger && nav.classList.contains('active')) {
-                nav.classList.remove('active');
-                hamburger.classList.remove('active');
+        // login link
+        document.getElementById("openLogin").addEventListener("click", (e) => {
+            e.preventDefault();
+            goRoute("login");
+        });
+
+        window.addEventListener("hashchange", renderRoute);
+        renderRoute();
+
+        function scrollToId(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        /* ---------------------------
+          MODALS
+        ---------------------------- */
+        function openModal(id) {
+            document.getElementById(id).classList.add("show");
+            document.body.style.overflow = "hidden";
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove("show");
+            document.body.style.overflow = "auto";
+        }
+        function closeOnOutside(event, id) {
+            if (event.target.id === id) closeModal(id);
+        }
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeModal("loginModal");
+                closeModal("helpModal");
             }
         });
 
-        // Modal functions
-        function openModal() {
-            document.getElementById('helpModal').classList.add('show');
-            document.body.style.overflow = 'hidden';
+        function openHelp() { openModal("helpModal"); }
+
+        function togglePass() {
+            const ip = document.getElementById("loginPass");
+            ip.type = (ip.type === "password") ? "text" : "password";
         }
 
-        function closeModal() {
-            document.getElementById('helpModal').classList.remove('show');
-            document.body.style.overflow = 'auto';
+        function fakeLogin() {
+            // demo only
+            closeModal("loginModal");
+            alert("Demo login successful ✅");
+            goRoute("dashboard");
         }
 
-        function closeModalOnOutside(event) {
-            if (event.target.id === 'helpModal') {
-                closeModal();
-            }
+        /* ---------------------------
+          CALCULATOR (reused)
+          Your formula preserved:
+          A = credits
+          B = A*3,000,000
+          D = ((764*2000)/12)*A
+          E = B/(764*2000) years
+          monthsPayback = E*12
+          profitableDate = purchaseDate + ceil(monthsPayback) months
+        ---------------------------- */
+        function initCalcAutoAmount() {
+            document.querySelectorAll("[data-calc]").forEach(block => {
+                const creditsInput = block.querySelector(".credits");
+                const amountInput = block.querySelector(".amount");
+                creditsInput.addEventListener("input", () => {
+                    const credits = parseFloat(creditsInput.value) || 0;
+                    const amount = credits * 3000000;
+                    amountInput.value = amount.toLocaleString("vi-VN");
+                });
+            });
         }
+        initCalcAutoAmount();
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
-        });
+        function calculateResults(which) {
+            const block = document.querySelector(`[data-calc="${which}"]`);
+            if (!block) return;
 
-        // Update amount when credits change
-        document.getElementById('credits').addEventListener('input', function() {
-            const credits = parseFloat(this.value) || 0;
-            const amount = credits * 3000000;
-            document.getElementById('amount').value = amount.toLocaleString('vi-VN');
-        });
-
-        function calculateResults() {
-            const credits = parseFloat(document.getElementById('credits').value) || 0;
-            const purchaseDateStr = document.getElementById('purchaseDate').value;
+            const credits = parseFloat(block.querySelector(".credits").value) || 0;
+            const purchaseDateStr = block.querySelector(".purchaseDate").value;
 
             if (credits <= 0) {
-                alert('Vui lòng nhập số credits hợp lệ');
+                alert("Vui lòng nhập số credits hợp lệ");
                 return;
             }
-
             if (!purchaseDateStr) {
-                alert('Vui lòng chọn ngày mua');
+                alert("Vui lòng chọn ngày mua");
                 return;
             }
 
-            // A = credits
             const A = credits;
-            
-            // B = A * 3,000,000
             const B = A * 3000000;
-            
-            // D = [(764 * 2000) / 12] * A
             const D = ((764 * 2000) / 12) * A;
-            
-            // E = B / (764 * 2000) (in years)
-            const E = B / (764 * 2000);
-            
-            // Convert E to months
+            const E = B / (764 * 2000);  // years
             const monthsPayback = E * 12;
 
-            // Calculate profitable date
             const purchaseDate = new Date(purchaseDateStr);
             const profitableDate = new Date(purchaseDate);
             profitableDate.setMonth(profitableDate.getMonth() + Math.ceil(monthsPayback));
 
-            // Display results
-            document.getElementById('reducedAmount').textContent = 
-                Math.round(D).toLocaleString('vi-VN') + ' VND';
-            
-            document.getElementById('paybackPeriod').textContent = 
-                monthsPayback.toFixed(1) + ' month(s)';
-            
-            const day = String(profitableDate.getDate()).padStart(2, '0');
-            const month = String(profitableDate.getMonth() + 1).padStart(2, '0');
+            block.querySelector(".reducedAmount").textContent =
+                Math.round(D).toLocaleString("vi-VN") + " VND";
+
+            block.querySelector(".paybackPeriod").textContent =
+                monthsPayback.toFixed(1) + " month(s)";
+
+            const day = String(profitableDate.getDate()).padStart(2, "0");
+            const month = String(profitableDate.getMonth() + 1).padStart(2, "0");
             const year = profitableDate.getFullYear();
-            document.getElementById('profitableDate').textContent = 
+            block.querySelector(".profitableDate").textContent =
                 `${day}/${month}/${year}`;
         }
+
+        /* ---------------------------
+          BILL DEMO DATA + PDF
+        ---------------------------- */
+        const billData = {
+            "10/2025": { initial: 2817000, discount: 868300 },
+            "11/2025": { initial: 2654000, discount: 790000 },
+            "12/2025": { initial: 3032000, discount: 915500 },
+            "01/2026": { initial: 2490000, discount: 720000 },
+        };
+
+        const billMonth = document.getElementById("billMonth");
+        billMonth.addEventListener("change", () => {
+            const m = billMonth.value;
+            const d = billData[m];
+            if (!d) return;
+            const payable = d.initial - d.discount;
+
+            document.getElementById("initialBill").textContent = d.initial.toLocaleString("vi-VN") + " VND";
+            document.getElementById("discount").textContent = "-" + d.discount.toLocaleString("vi-VN") + " VND";
+            document.getElementById("payable").textContent = payable.toLocaleString("vi-VN") + " VND";
+        });
+
+        function saveBillPDF() {
+            // simplest: print dialog -> user chooses "Save as PDF"
+            window.print();
+        }
+
+        /* ---------------------------
+          TRANSACTIONS DEMO
+        ---------------------------- */
+        const txns = [
+            { type: "Buy 1 Credit(s)", status: "Transaction Successful", date: "10/01/2026", year: 2026 },
+            { type: "Buy 1 Credit(s)", status: "Transaction Successful", date: "02/01/2026", year: 2026 },
+            { type: "Buy 1 Credit(s)", status: "Transaction Successful", date: "10/11/2025", year: 2025 },
+            { type: "Buy 1 Credit(s)", status: "Transaction Successful", date: "09/11/2025", year: 2025 },
+            { type: "Buy 1 Credit(s)", status: "Transaction Successful", date: "10/09/2025", year: 2025 },
+        ];
+
+        const txnYear = document.getElementById("txnYear");
+        txnYear.addEventListener("change", renderTxns);
+        renderTxns();
+
+        function renderTxns() {
+            const y = parseInt(txnYear.value, 10);
+            const list = document.getElementById("txnList");
+            list.innerHTML = "";
+
+            const filtered = txns.filter(t => t.year === y);
+            if (filtered.length === 0) {
+                list.innerHTML = `<div class="faqItem"><div class="faqQ">No transactions</div><div class="faqA">Demo data is empty for this year.</div></div>`;
+                return;
+            }
+
+            filtered.forEach(t => {
+                const el = document.createElement("div");
+                el.className = "txnItem";
+                el.innerHTML = `
+          <div class="txnLeft">
+            <div class="chip" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 7h16v10H4V7Z" stroke="#059669" stroke-width="2"/>
+                <path d="M7 11h10" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="txnMeta">
+              <b>${t.type}</b>
+              <small>${t.status}</small>
+            </div>
+          </div>
+          <div class="txnDate">${t.date}</div>
+        `;
+                list.appendChild(el);
+            });
+        }
+
+        /* ---------------------------
+          SIMPLE CANVAS CHARTS (no libs)
+        ---------------------------- */
+        let chartsDrawn = false;
+        function drawAllCharts() {
+            if (chartsDrawn) return;
+            chartsDrawn = true;
+
+            // Yield curve sample (hours 1..10)
+            const yieldData = [3.2, 3.6, 3.9, 4.8, 0.6, 1.4, 1.9, 4.1, 3.7, 3.4];
+            drawLineChart("yieldChart", yieldData, { minY: 0, maxY: 5, xLabels: ["1h", "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "10h"] });
+
+            // Monthly savings sample
+            const savings = [110000, 145000, 185000, 230000, 220000, 265000, 305000, 285000];
+            drawLineChart("savingChart", savings, { minY: 0, maxY: 320000, xLabels: ["10/24", "11/24", "12/24", "01/25", "02/25", "03/25", "04/25", "05/25"], money: true });
+        }
+
+        function drawLineChart(canvasId, data, opts = {}) {
+            const c = document.getElementById(canvasId);
+            if (!c) return;
+            const ctx = c.getContext("2d");
+
+            const W = c.width, H = c.height;
+            ctx.clearRect(0, 0, W, H);
+
+            const pad = 42;
+            const plotW = W - pad * 2;
+            const plotH = H - pad * 2;
+
+            const minY = opts.minY ?? Math.min(...data);
+            const maxY = opts.maxY ?? Math.max(...data);
+            const labels = opts.xLabels ?? data.map((_, i) => String(i + 1));
+
+            // background grid
+            ctx.strokeStyle = "#eef2f7";
+            ctx.lineWidth = 2;
+
+            const gridLines = 5;
+            for (let i = 0; i <= gridLines; i++) {
+                const y = pad + (plotH / gridLines) * i;
+                ctx.beginPath();
+                ctx.moveTo(pad, y);
+                ctx.lineTo(pad + plotW, y);
+                ctx.stroke();
+            }
+
+            // axes labels
+            ctx.fillStyle = "#6b7280";
+            ctx.font = "18px Arial";
+
+            // y labels (left)
+            for (let i = 0; i <= gridLines; i++) {
+                const val = maxY - ((maxY - minY) / gridLines) * i;
+                const y = pad + (plotH / gridLines) * i;
+                const text = opts.money ? Math.round(val).toLocaleString("vi-VN") : val.toFixed(1);
+                ctx.fillText(text, 6, y + 6);
+            }
+
+            // x labels (bottom)
+            ctx.textAlign = "center";
+            labels.forEach((lb, i) => {
+                const x = pad + (plotW / (labels.length - 1)) * i;
+                ctx.fillText(lb, x, H - 12);
+            });
+            ctx.textAlign = "left";
+
+            // line
+            ctx.strokeStyle = "#059669";
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+
+            const pts = data.map((v, i) => {
+                const x = pad + (plotW / (data.length - 1)) * i;
+                const y = pad + (1 - (v - minY) / (maxY - minY || 1)) * plotH;
+                return { x, y };
+            });
+
+            ctx.beginPath();
+            pts.forEach((p, i) => {
+                if (i === 0) ctx.moveTo(p.x, p.y);
+                else ctx.lineTo(p.x, p.y);
+            });
+            ctx.stroke();
+
+            // points
+            ctx.fillStyle = "#059669";
+            pts.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        // ensure charts render if user lands directly on #dashboard
+        if ((location.hash || "") === "#dashboard") drawAllCharts();
     </script>
 </body>
+
 </html>
